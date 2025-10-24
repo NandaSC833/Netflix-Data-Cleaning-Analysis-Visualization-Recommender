@@ -1,6 +1,4 @@
-# ===============================
-# 🎬 Netflix Data Analysis Dashboard (Centered Welcome + Cinematic UI)
-# ===============================
+# Netflix Data Analysis Dashboard (Centered Welcome + Cinematic UI)
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -8,9 +6,7 @@ import seaborn as sns
 import streamlit as st
 from wordcloud import WordCloud
 
-# ------------------------------
-# Streamlit Config
-# ------------------------------
+
 st.set_page_config(
     page_title="Netflix Dashboard",
     page_icon="🎥",
@@ -20,9 +16,7 @@ st.set_page_config(
 
 sns.set_style("whitegrid")
 
-# ------------------------------
-# 🎨 Styling with True Center Alignment
-# ------------------------------
+
 st.markdown("""
 <style>
 /* App background and font */
@@ -127,9 +121,7 @@ footer {
 </style>
 """, unsafe_allow_html=True)
 
-# ------------------------------
-# 🎬 Welcome Slide
-# ------------------------------
+
 if "start_analysis" not in st.session_state:
     st.session_state.start_analysis = False
 
@@ -154,9 +146,7 @@ if not st.session_state.start_analysis:
                 st.rerun()
     st.stop()
 
-# ------------------------------
-# 📥 Load Dataset
-# ------------------------------
+
 data_path = "data/netflix1.csv"
 if not os.path.exists(data_path):
     st.error("❌ Dataset not found in the data folder!")
@@ -179,9 +169,7 @@ for col in ['rating', 'duration', 'listed_in']:
     if col in data.columns:
         data[col].fillna('Unknown', inplace=True)
 
-# ------------------------------
-# 🎛️ Sidebar Filters
-# ------------------------------
+
 st.sidebar.header("🎛️ Filter Netflix Data")
 
 type_filter = st.sidebar.multiselect(
@@ -227,24 +215,19 @@ if genre_filter and 'listed_in' in filtered_data.columns:
 
 st.sidebar.success(f"✅ Showing {len(filtered_data)} records after filtering")
 
-# ------------------------------
-# 📊 KPI Section
-# ------------------------------
-# ------------------------------
-# 📊 KPI Section (Equal Width Fix)
-# ------------------------------
+
 st.markdown("### 📊 Key Insights")
 
-# Equal-width columns for 4 KPIs
+
 col1, col2, col3, col4 = st.columns(4, gap="medium")
 
-# Calculate key metrics
+
 total_titles = len(filtered_data)
 total_movies = len(filtered_data[filtered_data["type"] == "Movie"]) if "type" in filtered_data else 0
 total_shows = len(filtered_data[filtered_data["type"] == "TV Show"]) if "type" in filtered_data else 0
 unique_countries = filtered_data["country"].nunique() if "country" in filtered_data else 0
 
-# Common CSS wrapper for equal width cards
+
 metric_html = """
 <div style="
     background: linear-gradient(145deg, #141414, #0a0a0a);
@@ -276,16 +259,12 @@ with col3:
 with col4:
     st.markdown(metric_html.format(title="Countries", value=unique_countries), unsafe_allow_html=True)
 
-# ------------------------------
-# 📋 Dataset Preview
-# ------------------------------
+
 st.markdown("---")
 st.markdown("### 🎥 Dataset Preview")
 st.dataframe(filtered_data.head(10))
 
-# ------------------------------
-# 📈 Visualization Tabs
-# ------------------------------
+
 st.markdown("---")
 st.markdown("### 📈 Explore Netflix Insights")
 
@@ -352,9 +331,7 @@ with tab6:
         plt.title("Top 10 Most Common Genres")
         st.pyplot(fig)
 
-# ------------------------------
-# 💾 Download Section
-# ------------------------------
+
 st.markdown("---")
 st.markdown("### 💾 Download Filtered Dataset")
 csv = filtered_data.to_csv(index=False).encode("utf-8")
