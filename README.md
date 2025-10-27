@@ -1,4 +1,4 @@
-# 🎬 Netflix Data Analysis Dashboard
+# Netflix Data Analysis Dashboard
 
 An interactive, cinematic Streamlit dashboard for exploring Netflix content data — built by **Nanda S.C**.
 
