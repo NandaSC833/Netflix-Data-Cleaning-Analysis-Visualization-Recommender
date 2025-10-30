@@ -2,9 +2,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from wordcloud import WordCloud
 
-# ---------------------------------------------------
-# Plot 1: Distribution of Movies vs TV Shows
-# ---------------------------------------------------
+
 def plot_type_distribution(data):
     sns.countplot(x='type', data=data, palette='Set2')
     plt.title("Distribution of Content Type")
@@ -13,9 +11,7 @@ def plot_type_distribution(data):
     plt.tight_layout()
     plt.show()
 
-# ---------------------------------------------------
-# Plot 2: Top 10 Countries by Content
-# ---------------------------------------------------
+
 def plot_top_countries(data):
     top_countries = data['country'].value_counts().head(10)
     plt.figure(figsize=(10, 6))
@@ -26,9 +22,7 @@ def plot_top_countries(data):
     plt.tight_layout()
     plt.show()
 
-# ---------------------------------------------------
-# Plot 3: Yearly Trend of Content Added
-# ---------------------------------------------------
+
 def plot_yearly_trend(data):
     data['year_added'] = data['date_added'].dt.year
     sns.countplot(x='year_added', data=data, palette='mako')
@@ -39,9 +33,7 @@ def plot_yearly_trend(data):
     plt.tight_layout()
     plt.show()
 
-# ---------------------------------------------------
-# Plot 4: Word Cloud of Titles
-# ---------------------------------------------------
+
 def wordcloud_titles(data):
     titles = " ".join(data['title'])
     wc = WordCloud(width=1000, height=500, background_color='black').generate(titles)
